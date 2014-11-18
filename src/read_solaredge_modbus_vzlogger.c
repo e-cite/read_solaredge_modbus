@@ -56,7 +56,7 @@ int vz_post_value(int cur_power, char *vz_uuid)
 int main()
 {
 	int I_AC_Power_calculated = 0;
-	uint16_t I_Status_before = 0;
+	uint16_t I_Status_before = 4;
 	struct sunspec_modbus_mappings_solaredge *inv1 = malloc(MB_REG_COUNT*sizeof(uint16_t));
 	if ((void*)inv1 <= NULL) {
 		fprintf(stderr, "Error while allocating memory for sunspec_modbus_mappings_solaredge inv1: %s\n",strerror(errno));
