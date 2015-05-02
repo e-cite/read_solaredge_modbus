@@ -7,7 +7,7 @@
  * Parameters:
  * Return values:
  * Name: Andreas Dolp
- * Date: 01.05.2015
+ * Date: 02.05.2015
  * Version: 2.0
  * --------------------------- */
 
@@ -34,10 +34,11 @@ int main()
 		fprintf(stderr, "Error while allocating memory for sunspec_modbus_mappings_solaredge inv1: %s\n",strerror(errno));
 		return -1;
 	}
+	int inv1_ID = 1;
 
-	/* Create buffer file */
+	/* Create fifo buffer file */
 	int fd = NULL;
-	char *path = "/tmp/vzloggerfifo1";
+	char *path = "/tmp/vzloggerfifo";
 	mkfifo(path, 0666);
 	char buffer[MAXLEN];
 
@@ -60,21 +61,26 @@ int main()
 		printf("\n====================================================\n");		
 
 
-		fd = open(path, O_WRONLY);
+		fd = open(path, O_WRONLY); /* Open the fifo buffer file */
 		if (fd<=NULL) {
 			fprintf(stderr, "Error while opening file fd: %s\n",strerror(errno));
 		} else {
-			snprintf(buffer,MAXLEN,"1 %d ",I_AC_Power_calculated); // Add Error control, ID variable and timestamp
-			printf("Buffer: %s\n",buffer);
-			write(fd,buffer,sizeof(buffer));
+			/* Create buffer content as spcified in vzlogger.conf */
+			if ( snprintf(buffer,sizeof(buffer),"%d %d",inv1_ID,I_AC_Power_calculated) < 0 ) {
+				fprintf(stderr, "Error while creating buffer: %s\n",strerror(errno));
+			} else {
+				printf("Buffer: %s\n",buffer);
+				if ( write(fd,buffer,sizeof(buffer)) < 0 ) {
+					fprintf(stderr, "Error while writing fifo buffer: %s\n",strerror(errno));
+				}
+			}
 		}
-		close(fd);
-
+		close(fd); /* Close the fifo buffer file */
 
 		sleep(SE_NORMAL_READ_CYCLE_SECONDS);
 	}
 
-	unlink(path);
+	unlink(path); /* Free the buffer */
 
 	free(inv1);
 
