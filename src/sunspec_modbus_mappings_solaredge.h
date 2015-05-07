@@ -1,15 +1,20 @@
-/* ---------------------------
- * Project: 2014p03_stromzaehler-auswertung-SE3000
- * Filename: sunspec_modbus_mappings_solaredge.h
- * Function: Defines the struct sunspec_modbus_mappings_solaredge and the meaning of the bytes returned by the SolarEdge inverter
- * Comment: Scale factors are always used this way: value*10^scale-factor
- * Requires: stdint.h
- * Parameters:
- * Return values:
- * Name: Andreas Dolp
- * Date: 12.11.2014
- * Version: 1.0
- * --------------------------- */
+/*
+ * Read Solaredge Modbus - Reads data from Solaredge inverter via MODBUS TCP
+ * Copyright (C) 2015 Andreas Dolp <dev@andreas-dolp.de>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef SUNSPEC_MODBUS_MAPPINGS_SOLAREDGE_H_
 #define SUNSPEC_MODBUS_MAPPINGS_SOLAREDGE_H_
@@ -17,8 +22,11 @@
 #include <stdint.h>
 
 #define MB_REG_ADDRESS 40000	/* Register address for base 0 */
-#define MB_REG_COUNT 122	/* Number of registers to read */
-// TODO MB_REG_COUNT anpassen!
+#define MB_REG_COUNT 109	/* Number of registers to read */
+
+/*
+ * @brief Declares a struct to match the read inverter data
+ */
 struct sunspec_modbus_mappings_solaredge
 {
 	uint32_t C_SunSpec_ID;	/* Should always be "SunS" = 0x53756e53, this is a SunSpec-Modbus-Message */

@@ -1,15 +1,20 @@
-/* ---------------------------
- * Project: 2014p03_stromzaehler-auswertung-SE3000
- * Filename: read-modbus-rtu-device.c
- * Function: Reads a modbus RTU device's registers in an uint16_t array
- * Comment: First implementation
- * Requires: modbus.h
- * Parameters:
- * Return values: Number of uint16_t registers read, -1 if error
- * Name: Andreas Dolp
- * Date: 13.11.2014
- * Version: 1.0
- * --------------------------- */
+/*
+ * Read Solaredge Modbus - Reads data from Solaredge inverter via MODBUS TCP
+ * Copyright (C) 2015 Andreas Dolp <dev@andreas-dolp.de>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include <modbus.h>
 #include "read_modbus_rtu_device.h"
